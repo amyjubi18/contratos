@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <link href="./output.css" rel="stylesheet"> -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+      <script src="https://cdn.tailwindcss.com"></script>
+  <!-- html2pdf.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/html2pdf.js@0.10.1/dist/html2pdf.bundle.min.js"></script>
+<script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+    <title>Contratos</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+          }
+          .main-layout {
+            & > div {
+              width: 100%;
+              iframe {
+                width: 100%;
+                min-height: 500px;
+                height: 100%;
+                max-height: 800px;
+                
+              }
+            }
+          }
+         #pdf-content {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 0.75rem;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      color: #1e293b; /* Tailwind slate-800 */
+
+    
+}
+
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen flex ">
+
+    <!-- Menú Lateral -->
+    <aside class="w-52 bg-blue-900 shadow-md ">
+
+        <nav class="mt-4">
+            <ul>
+                    <li class="p-2 hover:bg-blue-800 cursor-pointer	text-white	"><a href="../empleados/index.html"><i class="fa-solid fa-users" style="color: #ffffff; margin-right: 10px;"></i>Empleados</a></li>
+                    <li class="p-2 hover:bg-blue-800 cursor-pointer	text-white	"><a href="../gerencias/"><i class="fa-solid fa-sitemap" style="color: #ffffff; margin-right: 10px;"></i>Gerencias</a></li>
+                    <li class="p-2 hover:bg-blue-800 cursor-pointer	text-white	"><a href="../directivos/index.html"><i class="fa-solid fa-user-tie" style="color: #ffffff; margin-right: 10px;"></i>Directivos</a></li>
+                    <li class="p-2 hover:bg-blue-800 cursor-pointer	text-white	"><a href="./index.html"><i class="fa-solid fa-file" style="color: #ffffff;margin-right: 10px;"></i>Contratos</a></li>
+                    <li class="p-2 hover:bg-blue-800 cursor-pointer	text-white	"><a href="../login.html"><i class="fa-solid fa-right-to-bracket" style="color: #ffffff; margin-right: 10px;"></i>Cerrar Sesion</a></li>
+            </ul>
+        </nav>
+    </aside>
+    <div class="block md:flex main-layout w-full">
+      <div class="block  p-20">
+        <form id="form" class="w-fit block">
+            <div class="mb-5">
+                    <label for="empleados_id" class="block text-text-sm font-medium text-gray-700">Empleado:</label>
+                    <select name="mt-1 block w-full border-2 border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-200" id="empleados_id" style="border: solid 1px #aca6a6; border-radius: 5px; width: -webkit-fill-available;"></select>
+                </div>
+           <!--  <div class="mb-5 hidden">
+                <label for="pto_cuenta" class="block text-sky-900 font-bold">Punto de cuenta:</label>
+                <input type="text" name="pto_cuenta" placeholder="Punto de cuenta" id="pto_cuenta" class="block w-full p-3 border-2 border-sky-700 bg-sky-50 rounded" />
+            </div>
+            <div class="mb-5 hidden ">
+                <label for="fecha_pto" class="block text-sky-900 font-bold">Fecha Pto Cuenta:</label>
+                <input type="text" name="fecha_pto" placeholder="Fecha Pto Cta" id="fecha_pto" class="block w-full p-3 border-2 border-sky-700 bg-sky-50 rounded" />
+            </div>
+            
+            <div class="mb-5 hidden">
+                <label for="cedula" class="block text-sky-900 font-bold">Cédula:</label>
+                <input type="text" name="cedula" placeholder="Cédula" id="cedula" class="block w-full p-3 border-2 border-sky-700 bg-sky-50 rounded" />
+            </div>
+            <div class="mb-5 hidden">
+                <label for="nombre_apellido" class="block text-sky-900 font-bold">Nombre y Apellido:</label>
+                <input type="text" name="nombre_apellido" placeholder="Nombre" id="nombre_apellido" class="block w-full p-3 border-2 border-sky-700 bg-sky-50 rounded" />
+            </div>
+            <div class="mb-5 hidden">
+                <label for="nacionalidad" class="block text-sky-900 font-bold">Nacionalidad:</label>
+                <input type="text" name="nacionalidad" placeholder="Nacionalidad" id="nacionalidad" class="block w-full p-3 border-2 border-sky-700 bg-sky-50 rounded" />
+            </div>
+            <div class="mb-5 hidden">
+                <label for="estado_civil" class="block text-sky-900 font-bold">Estado Civil:</label>
+                <input type="text" name="estado_civil" placeholder="Estado Civil" id="estado_civil" class="block w-full p-3 border-2 border-sky-700 bg-sky-50 rounded" />
+            </div>
+            <div class="mb-5 hidden">
+                <label for="telefono" class="block text-sky-900 font-bold">Telefono:</label>
+                <input type="text" name="telefono" placeholder="Telefono" id="telefono" class="block w-full p-3 border-2 border-sky-700 bg-sky-50 rounded" />
+            </div>
+            <div class="mb-5 hidden">
+                <label for="correo" class="block text-sky-900 font-bold">Correo Electronico:</label>
+                <input type="text" name="correo" placeholder="Correo Electronico" id="correo" class="block w-full p-3 border-2 border-sky-700 bg-sky-50 rounded" />
+            </div>
+        
+            <div class="mb-5 hidden">
+                <label for="direccion" class="block text-sky-900 font-bold">Dirección:</label>
+                <input type="text" name="direccion" placeholder="Dirección" id="direccion" class="block w-full p-3 border-2 border-sky-700 bg-sky-50 rounded" />
+            </div>
+            <div class="mb-5 hidden">
+                <label for="profesion" class="block text-sky-900 font-bold">Profesión:</label>
+                <input type="text" name="profesion" placeholder="Profesión" id="profesion" class="block w-full p-3 border-2 border-sky-700 bg-sky-50 rounded" />
+            </div>
+            <div class="mb-5 hidden">
+                <label for="ocupacion" class="block text-sky-900 font-bold">Ocupación:</label>
+                <input type="text" name="ocupacion" placeholder="Ocupación" id="ocupacion" class="block w-full p-3 border-2 border-sky-700 bg-sky-50 rounded" />
+            </div>
+            <div class="mb-5 hidden">
+                <label for="funciones" class="block text-sky-900 font-bold">Funciones:</label>
+                <input type="text" name="funciones" placeholder="Funciones" id="funciones" class="block w-full p-3 border-2 border-sky-700 bg-sky-50 rounded" />
+            </div>
+            <div class="mb-5 hidden">
+                <label for="vigencia" class="block text-sky-900 font-bold">Vigencia:</label>
+                <input type="text" name="vigencia" placeholder="Vigencia" id="vigencia" class="block w-full p-3 border-2 border-sky-700 bg-sky-50 rounded" />
+            </div>
+            <div class="mb-5 hidden">
+                <label for="gerencia" class="block text-sky-900 font-bold">Gerencia:</label>
+                <input type="text" name="gerencia" placeholder="Gerencia" id="gerencia" class="block w-full p-3 border-2 border-sky-700 bg-sky-50 rounded" />
+            </div>
+ -->
+
+
+
+           <div class="mb-5">
+                    <label for="directivos_id" class="block text-text-sm font-medium text-gray-700">Directivos:</label>
+                    <select name="directivos_id" class="mt-1 block w-full border-2 border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-200" id="directivos_id"></select>
+                </div>
+
+
+       <!--  <div class="mb-5 hidden">
+            <label for="cedula_directivos" class="block text-sky-900 font-bold">Cédula:</label>
+            <input type="text" name="cedula_directivos" placeholder="Cédula" id="cedula_directivos" class="block w-full p-3 border-2 border-sky-700 bg-sky-50 rounded" />
+        </div> -->
+        <div class="mb-5 ">
+            <p  class="block text-text-sm font-medium text-gray-700">Gaceta:</p>
+            <textarea name="gaceta" placeholder="Gaceta" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-200" id="gaceta"></textarea>
+            
+        </div>
+        
+        <!-- <div class="mb-5">
+          <label for="tipo_ciudadano" class="block text-sky-900 font-bold">Tipo de Ciudadano:</label>
+          <select name="tipo_ciudadano" class="block w-full p-3 border-2 border-sky-700 bg-sky-50 rounded" id="tipo_ciudadano">
+              <option value="ciudadano">Ciudadano</option>
+              <option value="ciudadana">Ciudadana</option>
+          </select>
+      </div> -->
+       <!--<div class="mb-5">
+          <label for="contratado" class="block text-sky-900 font-bold">Tipo de Ciudadano:</label>
+          <select name="contratado" class="block w-full p-3 border-2 border-sky-700 bg-sky-50 rounded" id="contratado">
+              <option value="EL CONTRATADO">El Contratado</option>
+              <option value="LA CONTRATADA">La Contratada</option>
+          </select>
+      </div> -->
+<div class="mb-5 hidden">
+                <label for="contratado" class="block text-text-sm font-medium text-gray-700">Contratados:</label>
+                <input type="text" name="contratado" placeholder="LA CONTRATADA O EL CONTRATADO" id="contratado" class="block w-full p-3 border-2 border-sky-700 bg-sky-50 rounded" />
+            </div>
+      <div class="mb-5 ">
+            <p  class="block text-text-sm font-medium text-gray-700">Proyecto:</p>
+            <span class="text-red-500">indica si posee proyecto, sino deja en blanco</span>
+            <textarea name="proyecto" placeholder="Proyecto" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-200" id="proyecto"></textarea>
+            
+        </div>
+
+        <div class="mb-5 ">
+            <p  class="flex text-text-sm font-medium text-gray-700">Funciones:</p>
+            <textarea name="funciones" placeholder="Funciones" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-200d" id="funciones"></textarea>
+                   <!-- <button type="button" id="add-textarea" class="bg-sky-500 text-white px-3 py-2 rounded">Agregar +</button> -->
+
+
+            
+        </div> 
+
+        <!-- <div class="mb-5 hidden">
+            <label for="nombre_directivo" class="block text-sky-900 font-bold">Nombre y Apellido:</label>
+            <input type="text" name="nombre_directivo" placeholder="Nombre" id="nombre_directivo" class="block w-full p-3 border-2 border-sky-700 bg-sky-50 rounded" />
+        </div>
+        <div class="mb-5 hidden">
+            <label for="cargo" class="block text-sky-900 font-bold">Cargo:</label>
+            <input type="text" name="cargo" placeholder="Nombre" id="cargo" class="block w-full p-3 border-2 border-sky-700 bg-sky-50 rounded" />
+        </div>
+
+          <div id="error-message-container" class="hidden text-red-500 bg-red-100 p-4 rounded mt-3 ">
+            *Error messages
+          </div>
+        
+        <div id="error-message-container" class="hidden text-red-500 bg-red-100 p-4 rounded mt-3 ">
+            *Error messages
+          </div> -->
+          <hr class="my-5">
+          <div class=" flex text-text-sm font-medium text-gray-700">
+            <button type="button" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 preview-pdf-btn">Descargar PDF</button>
+            <!-- <button type="submit" class="bg-sky-500 text-white px-3 py-2 rounded">Descargar PDF</button> -->
+          </div>
+        </form>
+      </div>
+
+      <div class="w-full p-10 wr-22 ">
+        
+        <div id="pdf-content" class="">
+        </div>
+
+
+      </div>
+    </div>
+
+   <!--  <script src="/views/js/ejemplo.js"></script> -->
+    <script src="/views/js/indexContratos.js"></script>
+    <script>
+           document.addEventListener('DOMContentLoaded', function() {
+               const addButton = document.getElementById('add-textarea');
+               const textareaContainer = document.getElementById('textarea-container');
+               if (addButton && textareaContainer) {
+                   addButton.addEventListener('click', function() {
+                       const newTextarea = document.createElement('textarea');
+                       newTextarea.name = "funciones";
+                        newTextarea.placeholder = "funciones";
+                       newTextarea.className = "block w-full p-3 border-2 border-sky-700 bg-sky-50 rounded mb-3";
+                       textareaContainer.appendChild(newTextarea);
+                   });
+               } else {
+                   console.error('Elementos no encontrados: ', { addButton, textareaContainer });
+               }
+           });
+       </script>
+
+  </body>
+</html>

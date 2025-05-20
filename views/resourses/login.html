@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login </title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-300 flex items-center justify-center h-screen" style="background-image:url('/views/img/fondo.jpg'); background-size: cover; background-position: center; background-attachment: fixed; background-repeat: no-repeat;">
+    <div class="bg-white p-8 rounded-lg shadow-md w-96 ">
+        <h2 class="text-2xl font-bold mb-6 text-center">Iniciar Sesión</h2>
+        <form id="loginForm">
+            <div class="mb-4">
+                <label for="email" class="block text-sm font-medium text-gray-700">Correo Electrónico</label>
+                <input type="email" id="email" required class="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-500" placeholder="tuemail@ejemplo.com">
+            </div>
+            <div class="mb-6">
+                <label for="password" class="block text-sm font-medium text-gray-700">Contraseña</label>
+                <input type="password" id="password" required class="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-500" placeholder="********">
+            </div>
+            <button type="submit" class="w-full bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600 transition-transform duration-300 transform hover:scale-105">Iniciar Sesión</button>
+        </form>
+        <!-- <p class="mt-4 text-center text-sm text-gray-600">¿No tienes una cuenta? <a href="#" class="text-blue-500">Regístrate</a></p> -->
+    </div>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Evita el envío del formulario
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            // Aquí puedes agregar la lógica para autenticar al usuario
+            console.log('Email:', email);
+            console.log('Contraseña:', password);
+
+            // Redirigir a la página de inicio (dashboard)
+            window.location.href = 'index.html'; // Cambia 'dashboard.html' por la ruta de tu página de inicio
+        });
+    </script>
+</body>
+</html>

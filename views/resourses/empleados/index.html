@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <title>Lista de Empleados</title>
+    <style>
+        /* Estilo para el modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 50;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+    </style>
+</head>
+<body class="bg-gray-100  flex">
+
+    <!-- Menú Lateral -->
+    <aside class="w-52 bg-blue-900 shadow-md ">
+
+        <nav class="mt-4">
+            <ul>
+                <li class="p-2 hover:bg-blue-800 cursor-pointer	text-white"><a href="../index.html"><i class="fa-solid fa-house" style="color: #ffffff; margin-right: 10px;"></i>Inicio</a></li>
+                <li class="p-2 hover:bg-blue-800 cursor-pointer	text-white	"><a href="./index.html"><i class="fa-solid fa-users" style="color: #ffffff; margin-right: 10px;"></i>Empleados</a></li>
+                <li class="p-2 hover:bg-blue-800 cursor-pointer	text-white	"><a href="../gerencias/index.html"><i class="fa-solid fa-sitemap" style="color: #ffffff; margin-right: 10px;"></i>Gerencias</a></li>
+                <li class="p-2 hover:bg-blue-800 cursor-pointer	text-white	"><a href="../directivos/index.html"><i class="fa-solid fa-user-tie" style="color: #ffffff; margin-right: 10px;"></i>Directivos</a></li>
+                <li class="p-2 hover:bg-blue-800 cursor-pointer	text-white	"><a href="../cdt/index.html"><i class="fa-solid fa-file" style="color: #ffffff;margin-right: 10px;"></i>Contratos</a></li>
+                <li class="p-2 hover:bg-blue-800 cursor-pointer	text-white	"><a href="../login.html"><i class="fa-solid fa-right-to-bracket" style="color: #ffffff; margin-right: 10px;"></i>Cerrar Sesion</a></li>
+            </ul>
+        </nav>
+    </aside>
+
+    <div class="container mx-auto p-4">
+  
+
+         <header class="flex justify-between items-center mb-4">
+            <h2 class="text-2xl font-bold mb-4 text-center text-blue-900">Lista de Empleados</h2>
+            <button class="bg-blue-800 text-white px-4 py-2 rounded hover:bg-blue-900 mb-4" onclick="openAddModal()">
+                <i class="fas fa-plus"></i>Agregar</button>
+        </header>
+         
+        <div id="grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+ 
+            
+        </div>
+    </div>
+    <!-- Modal -->
+<div id="modal" class="modal">
+    <div class="modal-content bg-white rounded-lg p-6 mx-auto mt-20 shadow-2xl w-11/12 md:w-1/3">
+        <span class="close cursor-pointer text-gray-500 float-right" onclick="closeModal()">&times;</span>
+        <h2 class="text-xl font-bold mb-4 text-center text-blue-800" id="modal-name"></h2>
+        <p class="text-lg"><strong>Cédula:</strong> <span id="modal-cedula"></span></p>
+        <p class="text-lg"><strong>Profesión:</strong> <span id="modal-profesion"></span></p>
+        <p class="text-lg"><strong>Nacionalidad:</strong> <span id="modal-nacionalidad"></span></p>
+        <p class="text-lg"><strong>Estado Civil:</strong> <span id="modal-estado-civil"></span></p>
+        <p class="text-lg"><strong>Teléfono:</strong> <span id="modal-telefono"></span></p>
+        <p class="text-lg"><strong>Correo:</strong> <span id="modal-correo"></span></p>
+        <p class="text-lg"><strong>Dirección:</strong> <span id="modal-direccion"></span></p>
+        <p class="text-lg"><strong>Gerencia:</strong> <span id="modal-gerencia"></span></p>
+        <p class="text-lg"><strong>Punto de Cuenta:</strong> <span id="modal-pto"></span></p>
+        <p class="text-lg"><strong>Fecha de Punto de Cuenta:</strong> <span id="modal-fecha-pto"></span></p>
+        <p class="text-lg"><strong>Ocupacion:</strong> <span id="modal-ocupacion"></span></p>
+        <p class="text-lg"><strong>Funciones:</strong> <span id="modal-funciones"></span></p>
+        <p class="text-lg"><strong>Vigencia:</strong> <span id="modal-vigencia"></span></p>
+    </div>
+</div>
+<!-- MODAR AGREGAR -->
+<div id="addModal" class="modal">
+    <div class="modal-content bg-white rounded-lg p-6 mx-auto mt-20 shadow-2xl w-11/12 md:w-1/3">
+        <span class="close cursor-pointer text-gray-500 float-right" onclick="closeAddModal()">&times;</span>
+        <h2 class="text-xl font-bold mb-4 text-center text-blue-800">Agregar Empleado</h2>
+        <form id="addEmployeeForm">
+            <div class="mb-4">
+                <label for="cedula" class="block text-sm font-medium text-gray-700">Cédula</label>
+                <input type="text" id="cedula" name="cedula" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-200" />
+            </div>
+            <div class="mb-4">
+                <label for="nombre_apellido" class="block text-sm font-medium text-gray-700">Nombre y Apellido</label>
+                <input type="text" id="nombre_apellido" name="nombre_apellido" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-200" />
+            </div>
+            <div class="mb-4">
+                <label for="correo" class="block text-sm font-medium text-gray-700">Correo</label>
+                <input type="email" id="correo" name="correo" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-200" />
+            </div>
+            <div class="mb-4">
+                <label for="telefono" class="block text-sm font-medium text-gray-700">Teléfono</label>
+                <input type="text" id="telefono" name="telefono" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-200" />
+            </div>
+            <div class="mb-4">
+                <label for="direccion" class="block text-sm font-medium text-gray-700">Dirección</label>
+                <input type="text" id="direccion" name="direccion" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-200" /> 
+            </div>
+            <div class="mb-4">
+                <label for="nacionalidad" class="block text-sm font-medium text-gray-700">Nacionalidad</label>
+                <select id="nacionalidad" name="nacionalidad" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-200">
+                    <option value="">Seleccione una nacionalidad</option>
+                    <option value="Venezolano">Venezolano</option>
+                    <option value="Venezolana">Venezolana</option>
+                    <option value="Extranjero">Extranjero</option>
+                    <option value="Extranjera">Extranjera</option>
+                </select>
+            </div>
+            
+            <div class="mb-4">
+                <label for="estado_civil" class="block text-sm font-medium text-gray-700">Estado Civil</label>
+                <select id="estado_civil" name="estado_civil" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-200">
+                    <option value="">Seleccione un estado civil</option>
+                    <option value="Soltero">Soltero</option>
+                    <option value="Soltera">Soltera</option>
+                    <option value="Casado">Casado</option>
+                    <option value="Casada">Casada</option>
+                    <option value="Viudo">Viudo</option>
+                    <option value="Viuda">Viuda</option>
+                    <option value="Divorciado">Divorciado</option>
+                    <option value="Divorciada">Divorciada</option>
+                </select>
+            </div>
+            <div class="mb-4">
+                <label for="gerencia_id" class="block text-sm font-medium text-gray-700">Gerencia</label>
+                <select id="gerencia_id" name="gerencia_id" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-200">
+                    <option value="">Seleccione una gerencia</option>
+                    <!-- Las opciones se llenarán aquí mediante JavaScript -->
+                </select>
+            </div>
+            <div class="mb-4">
+                <label for="pto_cuenta" class="block text-sm font-medium text-gray-700">Punto de Cuenta</label>
+                <input type="text" id="pto_cuenta" name="pto_cuenta" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-200" /> 
+            </div>
+            <div class="mb-4">
+                <label for="fecha_pto" class="block text-sm font-medium text-gray-700">Fecha de Punto de Cuenta</label>
+                <input type="date" id="fecha_pto" name="fecha_pto" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-200" /> 
+            </div>
+            <div class="mb-4">
+                <label for="profesion" class="block text-sm font-medium text-gray-700">Profesión</label>
+                <input type="text" id="profesion" name="profesion" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-200" /> 
+            </div>
+            <div class="mb-4">
+                <label for="ocupacion" class="block text-sm font-medium text-gray-700">Ocupación</label>
+                <input type="text" id="ocupacion" name="ocupacion" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-200" /> 
+            </div>
+            <div class="mb-4">
+                <label for="funciones" class="block text-sm font-medium text-gray-700">Funciones</label>
+                <input type="text" id="funciones" name="funciones" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-200" /> 
+            </div>
+            <div class="mb-4">
+                <label for="vigencia" class="block text-sm font-medium text-gray-700">Vigencia</label>
+                <input type="date" id="vigencia" name="vigencia" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-200" /> 
+            </div>
+            
+
+            
+            <div class="flex justify-end">
+                <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Agregar</button>
+            </div>
+
+        </form>
+    </div>
+</div>
+<!-- MODAL EDITAR -->
+<div id="editModal" class="modal">
+    <div class="modal-content bg-white rounded-lg p-6 mx-auto mt-20 shadow-2xl w-11/12 md:w-1/3">
+        <span class="close cursor-pointer text-gray-500 float-right" onclick="closeEditModal()">&times;</span>
+        <h2 class="text-xl font-bold mb-4 text-center text-blue-800">Editar Empleado</h2>
+        <form id="editForm">
+            <input type="hidden" id="id" name="id" />
+            <div class="mb-4">
+                <label for="cedula" class="block text-sm font-medium text-gray-700">Cédula</label>
+                <input type="text" id="cedula_edit" name="cedula" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-200" />
+            </div>
+            <div class="mb-4">
+                <label for="nombre_apellido" class="block text-sm font-medium text-gray-700">Nombre y Apellido</label>
+                <input type="text" id="nombre_apellido_edit" name="nombre_apellido" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-200" />
+            </div>
+            <div class="mb-4">
+                <label for="correo" class="block text-sm font-medium text-gray-700">Correo</label>
+                <input type="email" id="correo_edit" name="correo" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-200" />
+            </div>
+            <div class="mb-4">
+                <label for="telefono" class="block text-sm font-medium text-gray-700">Teléfono</label>
+                <input type="text" id="telefono_edit" name="telefono" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-200" />
+            </div>
+            <div class="mb-4">
+                <label for="direccion" class="block text-sm font-medium text-gray-700">Dirección</label>
+                <input type="text" id="direccion_edit" name="direccion" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-200" /> 
+            </div>
+            <div class="mb-4">
+                <label for="nacionalidad" class="block text-sm font-medium text-gray-700">Nacionalidad</label>
+                <select id="nacionalidad_edit" name="nacionalidad" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-200">
+                    <option value="">Seleccione una nacionalidad</option>
+                    <option value="Venezolano">Venezolano</option>
+                    <option value="Venezolana">Venezolana</option>
+                    <option value="Extranjero">Extranjero</option>
+                    <option value="Extranjera">Extranjera</option>
+                </select>
+            </div>
+            
+            <div class="mb-4">
+                <label for="estado_civil" class="block text-sm font-medium text-gray-700">Estado Civil</label>
+                <select id="estado_civil_edit" name="estado_civil" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-200">
+                    <option value="">Seleccione un estado civil</option>
+                    <option value="Soltero">Soltero</option>
+                    <option value="Soltera">Soltera</option>
+                    <option value="Casado">Casado</option>
+                    <option value="Casada">Casada</option>
+                    <option value="Viudo">Viudo</option>
+                    <option value="Viuda">Viuda</option>
+                    <option value="Divorciado">Divorciado</option>
+                    <option value="Divorciada">Divorciada</option>
+                </select>
+            </div>
+            <div class="mb-4">
+                <label for="gerencia_id" class="block text-sm font-medium text-gray-700">Gerencia</label>
+                <select id="gerencia_id_edit" name="gerencia_id_edit" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-200">
+                    <option value="gerencia_id_edit">Seleccione una gerencia</option>
+                    <!-- Las opciones se llenarán aquí mediante JavaScript -->
+                </select>
+            </div>
+            <div class="mb-4">
+                <label for="pto_cuenta" class="block text-sm font-medium text-gray-700">Punto de Cuenta</label>
+                <input type="text" id="pto_cuenta_edit" name="pto_cuenta" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-200" /> 
+            </div>
+            <div class="mb-4">
+                <label for="fecha_pto" class="block text-sm font-medium text-gray-700">Fecha de Punto de Cuenta</label>
+                <input type="date" id="fecha_pto_edit" name="fecha_pto" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-200" /> 
+            </div>
+            <div class="mb-4">
+                <label for="profesion" class="block text-sm font-medium text-gray-700">Profesión</label>
+                <input type="text" id="profesion_edit" name="profesion" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-200" /> 
+            </div>
+            <div class="mb-4">
+                <label for="ocupacion" class="block text-sm font-medium text-gray-700">Ocupación</label>
+                <input type="text" id="ocupacion_edit" name="ocupacion" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-200" /> 
+            </div>
+            <div class="mb-4">
+                <label for="funciones" class="block text-sm font-medium text-gray-700">Funciones</label>
+                <input type="text" id="funciones_edit" name="funciones" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-200" /> 
+            </div>
+            <div class="mb-4">
+                <label for="vigencia" class="block text-sm font-medium text-gray-700">Vigencia</label>
+                <input type="date" id="vigencia_edit" name="vigencia" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-200" /> 
+            </div>
+            <!-- Agrega los demás campos aquí -->
+            <div class="flex justify-end">
+                <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Actualizar</button>
+            </div>
+        </form>
+    </div>
+</div>
+    <script src="/views/js/indexEmpleados.js"></script>
+    <script src="/views/js/agregarEmpleado.js"></script>
+<script>
+    
+</script>
+</body>
+</html>

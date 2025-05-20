@@ -1,0 +1,306 @@
+<!-- <!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Formulario para generar PDF</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f9fafb;
+      margin: 1rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      min-height: 100vh;
+      padding: 1rem;
+    }
+    h1 {
+      color: #1a202c;
+      margin-bottom: 1.5rem;
+      text-align: center;
+    }
+    form {
+      background: white;
+      padding: 1.5rem;
+      border-radius: 10px;
+      max-width: 400px;
+      width: 100%;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    label {
+      display: block;
+      margin-bottom: 0.35rem;
+      font-weight: 600;
+      color: #2d3748;
+    }
+    input[type="text"], textarea {
+      width: 100%;
+      padding: 0.45rem 0.65rem;
+      margin-bottom: 1rem;
+      border: 1.5px solid #cbd5e0;
+      border-radius: 6px;
+      font-size: 1rem;
+      transition: border-color 0.3s ease;
+      resize: vertical;
+    }
+    input[type="text"]:focus, textarea:focus {
+      outline: none;
+      border-color: #3182ce;
+      box-shadow: 0 0 4px #90cdf4;
+    }
+    button {
+      width: 100%;
+      padding: 0.7rem;
+      background-color: #3182ce;
+      color: white;
+      font-weight: 700;
+      font-size: 1.1rem;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.25s ease;
+    }
+    button:hover {
+      background-color: #2c5282;
+    }
+    .loading {
+      text-align: center;
+      margin-top: 1rem;
+      font-style: italic;
+      color: #4a5568;
+    }
+    @media (max-width:480px) {
+      body {
+        margin: 0.5rem;
+        padding: 0.5rem;
+      }
+      form {
+        padding: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>Generar PDF desde formulario</h1>
+  <form id="pdfForm">
+    <label for="titulo">Título</label>
+    <input type="text" id="titulo" name="titulo" placeholder="Ingrese el título" required />
+    <label for="contenido">Contenido</label>
+    <textarea id="contenido" name="contenido" rows="6" placeholder="Ingrese el contenido para el PDF" required></textarea>
+    <button type="submit">Generar PDF</button>
+  </form>
+  <div class="loading" id="loading" style="display:none;">Generando PDF, por favor espere…</div>
+
+  <script>
+    const form = document.getElementById('pdfForm');
+    const loadingEl = document.getElementById('loading');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      loadingEl.style.display = 'block';
+
+      const formData = new FormData(form);
+      const data = {
+        titulo: formData.get('titulo'),
+        contenido: formData.get('contenido')
+      };
+
+      try {
+        const response = await fetch('/generate-pdf', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(data),
+        });
+
+        if (!response.ok) {
+          throw new Error('Error generando PDF');
+        }
+
+        const blob = await response.blob();
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        // Name PDF file with title, safely sanitized
+        const safeTitle = data.titulo.replace(/\s+/g, '_').replace(/[^\w\-]/g, '') || 'document';
+        a.download = safeTitle + '.pdf';
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        window.URL.revokeObjectURL(url);
+
+      } catch (error) {
+        alert('Error al generar el PDF. Intente nuevamente.');
+        console.error(error);
+      } finally {
+        loadingEl.style.display = 'none';
+      }
+    });
+  </script>
+</body>
+</html> -->
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Formulario a PDF con Tailwind - Cambios Preview</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    #preview {
+      box-shadow: inset 0 0 10px rgba(0,0,0,0.05);
+      transition: background-color 0.3s ease;
+    }
+  </style>
+</head>
+<body class="bg-gray-100 min-h-screen flex flex-col items-center p-6">
+  <h1 class="text-3xl font-extrabold mb-6 text-gray-800">Formulario a PDF con Tailwind CSS</h1>
+
+  <form id="data-form" class="bg-white rounded-xl shadow-lg p-6 w-full max-w-md mb-10" novalidate>
+    <div class="mb-5">
+      <label for="title" class="block text-gray-700 font-semibold mb-2">Título:</label>
+      <input
+        type="text"
+        id="title"
+        name="title"
+        placeholder="Ingrese un título"
+        required
+        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
+      />
+    </div>
+    <div class="mb-5">
+      <label for="paragraph" class="block text-gray-700 font-semibold mb-2">Párrafo:</label>
+      <textarea
+        id="paragraph"
+        name="paragraph"
+        placeholder="Ingrese texto para el párrafo"
+        required
+        rows="4"
+        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition resize-y"
+      ></textarea>
+    </div>
+    <div class="mb-6">
+      <label for="bgcolor" class="block text-gray-700 font-semibold mb-2">Color de fondo del diseño:</label>
+      <input type="color" id="bgcolor" name="bgcolor" value="#ffffff" class="w-20 h-10 p-0 border border-gray-300 rounded-lg cursor-pointer transition" />
+    </div>
+    <button
+      type="submit"
+      class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-xl transition duration-300"
+    >
+      Actualizar Vista Previa
+    </button>
+  </form>
+
+  <div id="preview-container" class="bg-white rounded-xl shadow-xl px-8 py-10 w-full max-w-xl mb-10 min-h-[310px]">
+    <div
+      id="preview"
+      class="rounded-lg p-6 min-h-[250px]"
+      style="background-color: #fff;"
+    >
+      <h2 class="text-3xl font-bold text-gray-900 mb-4">Título de ejemplo</h2>
+      <p class="text-lg leading-relaxed text-gray-700">Texto de ejemplo para la vista previa. El contenido aparecerá aquí.</p>
+    </div>
+  </div>
+
+  <button
+    id="generate-pdf-btn"
+    class="w-full max-w-xl bg-green-600 hover:bg-green-700 text-white font-bold py-3 rounded-xl transition duration-300"
+  >
+    Generar PDF
+  </button>
+
+  <!-- jsPDF y html2canvas CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+  <script>
+    const { jsPDF } = window.jspdf;
+
+    const form = document.getElementById('data-form');
+    const preview = document.getElementById('preview');
+    const generateBtn = document.getElementById('generate-pdf-btn');
+
+    function escapeHtml(text) {
+      if (!text) return '';
+      return text.replace(/[&<>"']/g, function (m) {
+        switch (m) {
+          case '&': return '&amp;';
+          case '<': return '&lt;';
+          case '>': return '&gt;';
+          case '"': return '&quot;';
+          case "'": return '&#039;';
+          default: return m;
+        }
+      });
+    }
+
+    function updatePreview(data) {
+      console.log('Actualizando vista previa con:', data);
+      preview.style.backgroundColor = data.bgcolor;
+     preview.innerHTML = `
+  <h2 class="text-3xl font-bold text-gray-900 mb-4">${escapeHtml(data.title)}</h2>
+  <p class="text-lg leading-relaxed text-gray-700">${escapeHtml(data.paragraph).replace(/\n/g, '<br>')}</p>
+`;
+
+    }
+
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      const formData = new FormData(form);
+      const data = {
+        title: formData.get('title'),
+        paragraph: formData.get('paragraph'),
+        bgcolor: formData.get('bgcolor'),
+      };
+      updatePreview(data);
+    });
+
+    generateBtn.addEventListener('click', async () => {
+      generateBtn.disabled = true;
+      generateBtn.textContent = "Generando PDF...";
+
+      try {
+        const canvas = await html2canvas(preview, { scale: 2 });
+        const imgData = canvas.toDataURL('image/png');
+
+        const pdf = new jsPDF({
+          unit: 'mm',
+          format: 'a4'
+        });
+
+        const pageWidth = pdf.internal.pageSize.getWidth();
+        const pageHeight = pdf.internal.pageSize.getHeight();
+
+        const imgProps = pdf.getImageProperties(imgData);
+        const pdfWidth = pageWidth * 0.9;
+        const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+
+        const posY = (pageHeight - pdfHeight) / 2;
+
+        pdf.addImage(imgData, 'PNG', (pageWidth - pdfWidth) / 2, posY, pdfWidth, pdfHeight);
+
+        pdf.save('contenido-tailwind.pdf');
+      } catch (error) {
+        alert('Error generando PDF: ' + error.message);
+      } finally {
+        generateBtn.disabled = false;
+        generateBtn.textContent = "Generar PDF";
+      }
+    });
+
+    // Para que al cargar la página también se muestre preview con los valores del formulario (si los hay)
+    window.addEventListener('load', () => {
+      const data = {
+        title: form.title.value || 'Título de ejemplo',
+        paragraph: form.paragraph.value || 'Texto de ejemplo para la vista previa. El contenido aparecerá aquí.',
+        bgcolor: form.bgcolor.value || '#ffffff',
+      };
+      updatePreview(data);
+    });
+  </script>
+</body>
+</html>
+

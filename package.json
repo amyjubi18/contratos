@@ -1,0 +1,24 @@
+{
+  "name": "proyecto2final",
+  "version": "1.0.0",
+  "description": "Proyecto 2",
+  "license": "ISC",
+  "author": "Amanda Garcia",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "@libsql/client": "^0.15.4",
+    "@pdfme/common": "^5.3.16",
+    "@pdfme/generator": "^5.3.16",
+    "body-parser": "^2.2.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0",
+    "nodemon": "^3.1.10",
+    "puppeteer": "^24.8.2"
+  }
+}
