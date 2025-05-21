@@ -3,7 +3,7 @@ import { createClient } from "@libsql/client";
 // Configuración de la base de datos utilizando variables de entorno
 export const turso = createClient({
   url: process.env.TURSO_DATABASE_URL,
-  authToken: process.env.TURSO_AUTH_TOKEN,
+  authToken: process.env.TURSO_API_KEY,
 });
 
 // Creación de las tablas
