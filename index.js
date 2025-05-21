@@ -4,8 +4,10 @@ const bodyParser = require('body-parser');
 const { crearTablas } = require('./models/creacionTablas');
 const router = require('./routes/rutes');
 
-   import dotenv from 'dotenv';
-   dotenv.config();
+   
+const dotenv = require('dotenv');
+dotenv.config();
+
    
 const app = express();
 const PORT = 5600;
