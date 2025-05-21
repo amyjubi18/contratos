@@ -108,9 +108,19 @@ const generarPDF = async () => {
     const gaceta = document.getElementById('gaceta').value;
     
     const proyecto = document.getElementById('proyecto').value;
-    const funciones = document.getElementById('funciones').value;
 
+    // Captura el contenido del textarea con ID 'funciones'
+    const funcionesTextarea = document.getElementById('funciones');
+    const funciones = funcionesTextarea ? funcionesTextarea.value : '';
 
+    // Obtener todas las funciones de los textareas en textarea-container
+    const funcionesTextareas = document.querySelectorAll('#textarea-container textarea');
+    let funcionesDinamicas = '';
+    funcionesTextareas.forEach(textarea => {
+        funcionesDinamicas += textarea.value + '\n'; // Concatenar el contenido de cada textarea
+    });
+    // Combina el contenido del textarea original y los dinámicos
+    const todasLasFunciones = funciones + '\n' + funcionesDinamicas;
     // Obtener datos del empleado
     const empleadoRes = await fetch(`http://localhost:5600/empleados/${empleadoId}`);
     if (!empleadoRes.ok) throw new Error(`Error al obtener empleado: ${empleadoRes.status}`);
@@ -151,7 +161,7 @@ const generarPDF = async () => {
                 <h1 style="font-weight: bold; text-align: center; ">DEL OBJETO DEL CONTRATO</h1>
                 <p> <b style="">CLÁUSULA PRIMERA. </b> desempeñará actividades bajo la modalidad de contrato a tiempo determinado, adscrita  a Presidencia de la Corporación, comprometiéndose a prestar sus servicios personales, cumpliendo sin limitación, todos aquellos servicios y actividades inherentes, derivadas o relacionadas con el objeto del Contrato, observando en el desempeño de sus funciones las previsiones de la Ley, la costumbre, el uso local, la normativa y políticas de <b>CODECYT, S.A.</b></p>
 
-                <p>${funciones}</p>
+                <p style="margin-left: 50px; margin-top: ">${todasLasFunciones.replace(/\n/g, '<br/>')}</p>
                 <p syle="text-align: justify;"></p>
                 <br>
                </div>

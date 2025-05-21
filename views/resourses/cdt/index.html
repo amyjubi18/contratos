@@ -168,8 +168,10 @@
 
         <div class="mb-5 ">
             <p  class="flex text-text-sm font-medium text-gray-700">Funciones:</p>
-            <textarea name="funciones" placeholder="Funciones" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-200d" id="funciones"></textarea>
-                   <!-- <button type="button" id="add-textarea" class="bg-sky-500 text-white px-3 py-2 rounded">Agregar +</button> -->
+            <textarea name="funciones" placeholder="Funciones" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-200" id="funciones"></textarea>
+            <div id="textarea-container" class="mb-5 mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-200"></div>
+
+                   <button type="button" id="add-textarea" class="bg-sky-500 text-white px-3 py-2 rounded">Agregar +</button>
 
 
             
@@ -212,20 +214,23 @@
     <script src="/views/js/indexContratos.js"></script>
     <script>
            document.addEventListener('DOMContentLoaded', function() {
-               const addButton = document.getElementById('add-textarea');
-               const textareaContainer = document.getElementById('textarea-container');
-               if (addButton && textareaContainer) {
-                   addButton.addEventListener('click', function() {
-                       const newTextarea = document.createElement('textarea');
-                       newTextarea.name = "funciones";
-                        newTextarea.placeholder = "funciones";
-                       newTextarea.className = "block w-full p-3 border-2 border-sky-700 bg-sky-50 rounded mb-3";
-                       textareaContainer.appendChild(newTextarea);
-                   });
-               } else {
-                   console.error('Elementos no encontrados: ', { addButton, textareaContainer });
-               }
-           });
+    const addButton = document.getElementById('add-textarea');
+    const textareaContainer = document.getElementById('textarea-container');
+    
+    if (addButton && textareaContainer) {
+        addButton.addEventListener('click', function() {
+            const newTextarea = document.createElement('textarea');
+            newTextarea.name = "funciones"; // Asegúrate de que el nombre sea correcto
+            newTextarea.placeholder = "Funciones";
+            newTextarea.className = "mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-200";
+            textareaContainer.appendChild(newTextarea);
+        });
+    } else {
+        console.error('Elementos no encontrados: ', { addButton, textareaContainer });
+    }
+});
+
+
        </script>
 
   </body>
